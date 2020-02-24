@@ -30,11 +30,11 @@ public class Funcionario {
         this.salarioMensal = salarioMensal;
     }
 
-    public float calcAumentoSalarial(float porcentagem) {
+    public float calcAumentoSalarial(float porcentagem)throws Exception {
     return this.salarioMensal+=(salarioMensal * porcentagem / 100);        
     }
 
-    public float calcInss() {        
+    public float calcInss()throws Exception {        
         float inss = 0f;
         float baseMinima = 2545.00f;
         float diferencaInss = 0f;
@@ -49,7 +49,7 @@ public class Funcionario {
 
         return inss;
     }
-    public float calculaImpRenda(){         
+    public float calculaImpRenda()throws Exception{         
         float impostoRenda = 0;
         
         if( salarioMensal <= 1903.98){
@@ -66,7 +66,7 @@ public class Funcionario {
         
         return impostoRenda;
     }
-    public float calculaIRPFmensal (){
+    public float calculaIRPFmensal ()throws Exception{
         float result;
         result =  calculaImpRenda() - (545.00f * this.numDeFilhos);
         if(result > 0){

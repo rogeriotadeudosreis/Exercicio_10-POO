@@ -138,33 +138,36 @@ public class TelaFuncionario extends javax.swing.JFrame {
 
         Funcionario rogerio = new Funcionario();
 
-        boolean validaDados = false;
+        try {
+            rogerio.setNome(jTextFieldNome.getText());
+            rogerio.setSalarioMensal(Float.parseFloat(jTextFieldSalario.getText()));
+            rogerio.setNumDeFilhos(Integer.parseInt(jTextFieldNumDeFilhos.getText()));
 
-        while (validaDados == false) {
-            try {
-                                      
-                rogerio.setNome(jTextFieldNome.getText());
-                rogerio.setSalarioMensal(Float.parseFloat(jTextFieldSalario.getText()));
-                rogerio.setNumDeFilhos(Integer.parseInt(jTextFieldNumDeFilhos.getText()));
-                validaDados = true;
+            String saida = "Dados do Funcionário:\n\n";
+            saida += "Nome do Funcionário.......: " + rogerio.getNome() + "\n";
+            saida += "Quant. de Filhos..........: " + rogerio.getNumDeFilhos() + "\n";
+            saida += "Salário mensal............: " + rogerio.getSalarioMensal() + "\n";
+            saida += "Salário Ajustado..........: " + rogerio.calcAumentoSalarial(Float.parseFloat(jTextFieldPorcentagem.getText())) + "\n";
+            saida += "Valor do INSS.............: " + rogerio.calcInss() + "\n";
+            saida += "Valor da parcela do IR....: " + rogerio.calculaImpRenda() + "\n";
+            saida += "Valor mensal do IRPF......: " + rogerio.calculaIRPFmensal();
 
-            } catch (Exception erro) {               
-                JOptionPane.showMessageDialog(null, "Dados incorretos!\nDigite novamente: "
-                        + "\n" + erro.toString() + "\n" +  erro.getMessage());
-            }
+            jTextAreaSaida.setText(saida);
+        } catch (ArithmeticException erro) {
+            JOptionPane.showMessageDialog(null, "Divisão por zero!\nDigite novamente: "
+                    + "\n" + erro.toString() + "\n" + erro.getMessage());
+            
+        } catch (NumberFormatException erro) {
+            JOptionPane.showMessageDialog(null, "Formato inválido!\nDigite novamente: "
+                    + "\n" + erro.toString() + "\n" + erro.getMessage());
+            
+        } catch (Exception erro) {
+            JOptionPane.showMessageDialog(null, "Ocorreu um erro!\nDigite novamente: "
+                    + "\n" + erro.toString() + "\n" + erro.getMessage());
         }
-
-        String saida = "Dados do Funcionário:\n\n";
-        saida += "Nome do Funcionário.......: " + rogerio.getNome() + "\n";
-        saida += "Quant. de Filhos..........: " + rogerio.getNumDeFilhos() + "\n";
-        saida += "Salário mensal............: " + rogerio.getSalarioMensal() + "\n";
-        saida += "Salário Ajustado..........: " + rogerio.calcAumentoSalarial(Float.parseFloat(jTextFieldPorcentagem.getText())) + "\n";
-        saida += "Valor do INSS.............: " + rogerio.calcInss() + "\n";
-        saida += "Valor da parcela do IR....: " + rogerio.calculaImpRenda() + "\n";
-        saida += "Valor mensal do IRPF......: " + rogerio.calculaIRPFmensal();
-
-        jTextAreaSaida.setText(saida);
-
+        finally{
+            JOptionPane.showMessageDialog(null, "Fim da execução do programa!.");
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
